@@ -72,7 +72,8 @@ public class MainCommand extends Command implements TabExecutor {
                             /// PROTOCOLIZE
                             // WORLD
                             sender.sendMessage(new ComponentBuilder(prefix).append("Location: X: " + WorldModule.getLocation(player.getUniqueId()).getX() + " Y: " + WorldModule.getLocation(player.getUniqueId()).getY() + " Z: " + WorldModule.getLocation(player.getUniqueId()).getZ() + " Yaw: " + WorldModule.getLocation(player.getUniqueId()).getYaw() + " Pitch: " + WorldModule.getLocation(player.getUniqueId()).getPitch()).create());
-                            sender.sendMessage(new ComponentBuilder(prefix).append("GameMode: " + WorldModule.getGamemode(player.getUniqueId()).name()).create());
+                            // Doesn't work
+                            // sender.sendMessage(new ComponentBuilder(prefix).append("GameMode: " + WorldModule.getGamemode(player.getUniqueId())).create());
                         }
                     } else {
                         sender.sendMessage(new ComponentBuilder(prefix).append("IsConnected: " + player.isConnected()).create());

@@ -29,7 +29,7 @@ public class Main extends Plugin {
         protocolize = getProxy().getPluginManager().getPlugin("protocolize-plugin") != null;
 
         if (!protocolize) {
-            logger.info("§cAdding protocolize allow you to see more stats of the player: https://www.spigotmc.org/resources/63778/");
+            logger.info("§cAdding protocolize allows you to see more stats of the player: https://www.spigotmc.org/resources/63778/");
         }
     }
 
