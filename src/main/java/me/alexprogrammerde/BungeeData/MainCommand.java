@@ -3,7 +3,10 @@ package me.alexprogrammerde.BungeeData;
 import de.exceptionflug.protocolize.world.WorldModule;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.hover.content.Text;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.TabExecutor;
@@ -32,48 +35,46 @@ public class MainCommand extends Command implements TabExecutor {
                     if (player.isConnected()) {
                         /// VANILLA
                         // PLAYER
-                        sender.sendMessage(new ComponentBuilder(prefix).append("Name: " + player.getName()).create());
-                        sender.sendMessage(new ComponentBuilder(prefix).append("DisplayName: " + player.getDisplayName()).create());
-                        sender.sendMessage(new ComponentBuilder(prefix).append("Locale: " + player.getLocale()).create());
-                        sender.sendMessage(new ComponentBuilder(prefix).append("Ping: " + player.getPing()).create());
-                        sender.sendMessage(new ComponentBuilder(prefix).append("ChatMode: " + player.getChatMode().name()).create());
-                        sender.sendMessage(new ComponentBuilder(prefix).append("UUID: " + player.getUniqueId().toString()).create());
-                        sender.sendMessage(new ComponentBuilder(prefix).append("Version: " + player.getPendingConnection().getVersion()).create());
-                        sender.sendMessage(new ComponentBuilder(prefix).append("MainHand: " + player.getMainHand().name()).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("Name: " + player.getName()).event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, player.getName())).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new ComponentBuilder("Click me!").create()))).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("DisplayName: " + player.getDisplayName()).event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, player.getDisplayName())).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new ComponentBuilder("Click me!").create()))).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("Locale: " + player.getLocale()).event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, player.getLocale().toString())).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new ComponentBuilder("Click me!").create()))).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("Ping: " + player.getPing()).event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, String.valueOf(player.getPing()))).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new ComponentBuilder("Click me!").create()))).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("ChatMode: " + player.getChatMode().name()).event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, player.getChatMode().name())).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new ComponentBuilder("Click me!").create()))).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("UUID: " + player.getUniqueId().toString()).event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, player.getUniqueId().toString())).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new ComponentBuilder("Click me!").create()))).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("Version: " + player.getPendingConnection().getVersion()).event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, String.valueOf(player.getPendingConnection().getVersion()))).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new ComponentBuilder("Click me!").create()))).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("MainHand: " + player.getMainHand().name()).event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, player.getMainHand().name())).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new ComponentBuilder("Click me!").create()))).create());
 
                         // SERVER
-                        sender.sendMessage(new ComponentBuilder(prefix).append("IsConnected: " + player.isConnected()).create());
-                        sender.sendMessage(new ComponentBuilder(prefix).append("Server: " + player.getServer().getInfo().getName()).create());
-                        sender.sendMessage(new ComponentBuilder(prefix).append("IsOnlineMode: " + player.getPendingConnection().isOnlineMode()).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("IsConnected: " + player.isConnected()).event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, String.valueOf(player.isConnected()))).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new ComponentBuilder("Click me!").create()))).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("Server: " + player.getServer().getInfo().getName()).event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, player.getServer().getInfo().getName())).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new ComponentBuilder("Click me!").create()))).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("IsOnlineMode: " + player.getPendingConnection().isOnlineMode()).event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, String.valueOf(player.getPendingConnection().isOnlineMode()))).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new ComponentBuilder("Click me!").create()))).create());
 
 
                         // FORGE
                         boolean forge = player.isForgeUser();
-                        sender.sendMessage(new ComponentBuilder(prefix).append("IsForgeUser: " + forge).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("IsForgeUser: " + forge).event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, String.valueOf(forge))).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new ComponentBuilder("Click me!").create()))).create());
 
                         if (forge) {
                             Map<String, String> mods = player.getModList();
 
                             for (String key : mods.keySet()) {
-                                sender.sendMessage(new ComponentBuilder(prefix).append("Mod: " + key + " | " + mods.get(key)).create());
+                                sender.sendMessage(new ComponentBuilder(prefix).append("Mod: " + key + " | " + mods.get(key)).event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, "Mod: " + key + " | " + mods.get(key))).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new ComponentBuilder("Click me!").create()))).create());
                             }
                         }
 
                         // SKIN
-                        sender.sendMessage(new ComponentBuilder(prefix).append("HasCape: " + player.getSkinParts().hasCape()).create());
-                        sender.sendMessage(new ComponentBuilder(prefix).append("HasHat: " + player.getSkinParts().hasHat()).create());
-                        sender.sendMessage(new ComponentBuilder(prefix).append("HasJacket: " + player.getSkinParts().hasJacket()).create());
-                        sender.sendMessage(new ComponentBuilder(prefix).append("LeftPants: " + player.getSkinParts().hasLeftPants()).create());
-                        sender.sendMessage(new ComponentBuilder(prefix).append("RightPants: " + player.getSkinParts().hasRightPants()).create());
-                        sender.sendMessage(new ComponentBuilder(prefix).append("LeftSleeve: " + player.getSkinParts().hasLeftSleeve()).create());
-                        sender.sendMessage(new ComponentBuilder(prefix).append("RightSleeve: " + player.getSkinParts().hasRightSleeve()).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("HasCape: " + player.getSkinParts().hasCape()).event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, String.valueOf(player.getSkinParts().hasCape()))).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new ComponentBuilder("Click me!").create()))).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("HasHat: " + player.getSkinParts().hasHat()).event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, String.valueOf(player.getSkinParts().hasHat()))).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new ComponentBuilder("Click me!").create()))).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("HasJacket: " + player.getSkinParts().hasJacket()).event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, String.valueOf(player.getSkinParts().hasJacket()))).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new ComponentBuilder("Click me!").create()))).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("LeftPants: " + player.getSkinParts().hasLeftPants()).event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, String.valueOf(player.getSkinParts().hasLeftPants()))).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new ComponentBuilder("Click me!").create()))).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("RightPants: " + player.getSkinParts().hasRightPants()).event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, String.valueOf(player.getSkinParts().hasRightPants()))).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new ComponentBuilder("Click me!").create()))).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("LeftSleeve: " + player.getSkinParts().hasLeftSleeve()).event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, String.valueOf(player.getSkinParts().hasLeftSleeve()))).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new ComponentBuilder("Click me!").create()))).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("RightSleeve: " + player.getSkinParts().hasRightSleeve()).event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, String.valueOf(player.getSkinParts().hasRightSleeve()))).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new ComponentBuilder("Click me!").create()))).create());
 
                         if (Main.protocolize) {
                             /// PROTOCOLIZE
                             // WORLD
-                            sender.sendMessage(new ComponentBuilder(prefix).append("Location: X: " + WorldModule.getLocation(player.getUniqueId()).getX() + " Y: " + WorldModule.getLocation(player.getUniqueId()).getY() + " Z: " + WorldModule.getLocation(player.getUniqueId()).getZ() + " Yaw: " + WorldModule.getLocation(player.getUniqueId()).getYaw() + " Pitch: " + WorldModule.getLocation(player.getUniqueId()).getPitch()).create());
-                            // Doesn't work
-                            // sender.sendMessage(new ComponentBuilder(prefix).append("GameMode: " + WorldModule.getGamemode(player.getUniqueId())).create());
+                            sender.sendMessage(new ComponentBuilder(prefix).append("Location: X: " + WorldModule.getLocation(player.getUniqueId()).getX() + " Y: " + WorldModule.getLocation(player.getUniqueId()).getY() + " Z: " + WorldModule.getLocation(player.getUniqueId()).getZ() + " Yaw: " + WorldModule.getLocation(player.getUniqueId()).getYaw() + " Pitch: " + WorldModule.getLocation(player.getUniqueId()).getPitch()).event(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, WorldModule.getLocation(player.getUniqueId()).getX() + " " + WorldModule.getLocation(player.getUniqueId()).getY() + " " + WorldModule.getLocation(player.getUniqueId()).getZ() + " " + WorldModule.getLocation(player.getUniqueId()).getYaw() + " " + WorldModule.getLocation(player.getUniqueId()).getPitch())).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new ComponentBuilder("Click me!").create()))).create());
                         }
                     } else {
                         sender.sendMessage(new ComponentBuilder(prefix).append("IsConnected: " + player.isConnected()).create());
