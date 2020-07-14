@@ -1,5 +1,6 @@
 package me.alexprogrammerde.BungeeData;
 
+import de.exceptionflug.protocolize.world.WorldModule;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -29,20 +30,50 @@ public class MainCommand extends Command implements TabExecutor {
                     String prefix = ChatColor.AQUA + "[BungeeData] " + ChatColor.GOLD;
 
                     if (player.isConnected()) {
-                        sender.sendMessage(new ComponentBuilder(prefix).append("IsConnected: " + player.isConnected()).create());
+                        /// VANILLA
+                        // PLAYER
                         sender.sendMessage(new ComponentBuilder(prefix).append("Name: " + player.getName()).create());
                         sender.sendMessage(new ComponentBuilder(prefix).append("DisplayName: " + player.getDisplayName()).create());
-                        sender.sendMessage(new ComponentBuilder(prefix).append("IsForgeUser: " + player.isForgeUser()).create());
                         sender.sendMessage(new ComponentBuilder(prefix).append("Locale: " + player.getLocale()).create());
                         sender.sendMessage(new ComponentBuilder(prefix).append("Ping: " + player.getPing()).create());
                         sender.sendMessage(new ComponentBuilder(prefix).append("ChatMode: " + player.getChatMode().name()).create());
-                        sender.sendMessage(new ComponentBuilder(prefix).append("Server: " + player.getServer().getInfo().getName()).create());
-                        sender.sendMessage(new ComponentBuilder(prefix).append("Scoreboard: " + player.getScoreboard()).create());
                         sender.sendMessage(new ComponentBuilder(prefix).append("UUID: " + player.getUniqueId().toString()).create());
                         sender.sendMessage(new ComponentBuilder(prefix).append("Version: " + player.getPendingConnection().getVersion()).create());
-                        sender.sendMessage(new ComponentBuilder(prefix).append("ReconnectServer: " + player.getReconnectServer().getName()).create());
                         sender.sendMessage(new ComponentBuilder(prefix).append("MainHand: " + player.getMainHand().name()).create());
+
+                        // SERVER
+                        sender.sendMessage(new ComponentBuilder(prefix).append("IsConnected: " + player.isConnected()).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("Server: " + player.getServer().getInfo().getName()).create());
                         sender.sendMessage(new ComponentBuilder(prefix).append("IsOnlineMode: " + player.getPendingConnection().isOnlineMode()).create());
+
+
+                        // FORGE
+                        boolean forge = player.isForgeUser();
+                        sender.sendMessage(new ComponentBuilder(prefix).append("IsForgeUser: " + forge).create());
+
+                        if (forge) {
+                            Map<String, String> mods = player.getModList();
+
+                            for (String key : mods.keySet()) {
+                                sender.sendMessage(new ComponentBuilder(prefix).append("Mod: " + key + " | " + mods.get(key)).create());
+                            }
+                        }
+
+                        // SKIN
+                        sender.sendMessage(new ComponentBuilder(prefix).append("HasCape: " + player.getSkinParts().hasCape()).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("HasHat: " + player.getSkinParts().hasHat()).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("HasJacket: " + player.getSkinParts().hasJacket()).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("LeftPants: " + player.getSkinParts().hasLeftPants()).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("RightPants: " + player.getSkinParts().hasRightPants()).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("LeftSleeve: " + player.getSkinParts().hasLeftSleeve()).create());
+                        sender.sendMessage(new ComponentBuilder(prefix).append("RightSleeve: " + player.getSkinParts().hasRightSleeve()).create());
+
+                        if (Main.protocolize) {
+                            /// PROTOCOLIZE
+                            // WORLD
+                            sender.sendMessage(new ComponentBuilder(prefix).append("Location: X: " + WorldModule.getLocation(player.getUniqueId()).getX() + " Y: " + WorldModule.getLocation(player.getUniqueId()).getY() + " Z: " + WorldModule.getLocation(player.getUniqueId()).getZ() + " Yaw: " + WorldModule.getLocation(player.getUniqueId()).getYaw() + " Pitch: " + WorldModule.getLocation(player.getUniqueId()).getPitch()).create());
+                            sender.sendMessage(new ComponentBuilder(prefix).append("GameMode: " + WorldModule.getGamemode(player.getUniqueId()).name()).create());
+                        }
                     } else {
                         sender.sendMessage(new ComponentBuilder(prefix).append("IsConnected: " + player.isConnected()).create());
                     }

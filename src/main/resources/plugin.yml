@@ -3,6 +3,7 @@ version: 1.0.0
 main: me.alexprogrammerde.BungeeData.Main
 author: AlexProgrammerDE
 description: Get data of proxied players.
+softdepend: [protocolize-plugin]
 permissions:
   bungeedata.use:
     description: Permission to use the /bungeedata command
